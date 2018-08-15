@@ -1,4 +1,16 @@
-html, body, .root {
+/**
+ * My Reads
+ *
+ * Custom Color Scheme
+ * color: #5699d2; // #2e7c31
+ * color: #5699d2; // #2e7d32
+ * color: #71c2cc; // #60ac5d
+ * color: #999; // #999
+ * color: #dedede; // #ddd
+ * color: #1d3f72; // #e9e
+ */
+
+html, body, #root {
   height: 100%;
 }
 body {
@@ -7,12 +19,16 @@ body {
 body, .app {
   background: white;
 }
+.app {
+  min-height: 100vh;
+}
 
 /* main page */
 
 .list-books-title {
+  border-bottom: 1px solid #ddd;
+  background: #5699d2;
   padding: 10px 0;
-  background: #2e7c31;
   text-align: center;
 }
 .list-books-title h1 {
@@ -37,7 +53,11 @@ body, .app {
 }
 
 .bookshelf-title {
+  color: #1d3f72;
   border-bottom: 1px solid #dedede;
+}
+.bookshelf-title-count {
+  color: #71c2cc;
 }
 .bookshelf-books {
   text-align: center;
@@ -53,7 +73,7 @@ body, .app {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #2e7d32;
+  background: #5699d2;
   background-image: url('./icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -75,7 +95,7 @@ body, .app {
 }
 .search-books-input-wrapper {
   flex: 1;
-  background: #e9e;
+  background: #1d3f72;
 }
 .search-books-bar input {
   width: 100%;
@@ -103,6 +123,16 @@ body, .app {
   padding: 80px 10px 20px;
 }
 
+.search-books-title {
+  border-bottom: 1px solid #ddd;
+  color: #999;
+}
+
+.search-books-count,
+.search-books-term {
+  color: #5699d2;
+}
+
 /* books grid */
 
 .books-grid {
@@ -126,6 +156,17 @@ body, .app {
 .book-authors {
   font-size: 0.8em;
 }
+.book-details-link {
+  color: #5699d2;
+  opacity: 1;
+  transition: .3s;
+}
+.book-details-link:hover {
+  color: #1d3f72;
+}
+.book:hover .book-details-link {
+  opacity: 1;
+}
 .book-title {
   margin-top: 10px;
 }
@@ -147,7 +188,7 @@ body, .app {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #60ac5d;
+  background: #71c2cc;
   background-image: url('./icons/arrow-drop-down.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -171,4 +212,34 @@ body, .app {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+}
+.loading-icon {
+  height: 120px;
+}
+
+/* Snackbar */
+.snackbar-book-title,
+.snackbar-book-shelf {
+  color: #71c2cc;
+}
+
+/**
+ * Theme Dark
+ */
+.theme-dark.app {
+   background: #111;
+ }
+.theme-dark .bookshelf-title {
+  color: #5699d2;
+}
+.theme-dark .book-title {
+    color: white;
+}
+.theme-dark .book-shelf-changer {
+  background-color: #5699d2;
 }
