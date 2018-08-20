@@ -1,5 +1,4 @@
 import React from 'react'
-import loadingIcon from './icons/loading.svg'
 
 const Loading = () => {
   return (

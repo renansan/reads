@@ -20,7 +20,23 @@ body, .app {
   background: white;
 }
 .app {
+  color: #444;
   min-height: 100vh;
+}
+
+/* Buttons */
+.button {
+  background: #5699d2;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration: none;
+  transition: .3s;
+}
+.button:hover {
+  background: #1d3f72;
 }
 
 /* main page */
@@ -28,13 +44,17 @@ body, .app {
 .list-books-title {
   border-bottom: 1px solid #ddd;
   background: #5699d2;
-  padding: 10px 0;
-  text-align: center;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
 }
 .list-books-title h1 {
   font-weight: 400;
   margin: 0;
+}
+.list-books-title h1 a {
   color: white;
+  text-decoration: none;
 }
 
 .list-books-content {
@@ -64,7 +84,6 @@ body, .app {
 }
 
 .open-search {
-  position: fixed;
   right: 25px;
   bottom: 25px;
 }
@@ -73,7 +92,7 @@ body, .app {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #5699d2;
+  background: #71c2cc;
   background-image: url('./icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -85,13 +104,10 @@ body, .app {
 /* search page */
 
 .search-books-bar {
-  position: fixed;
   width: 100%;
-  top: 0;
-  left: 0;
   z-index: 5;
   display: flex;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 .search-books-input-wrapper {
   flex: 1;
@@ -120,7 +136,7 @@ body, .app {
 }
 
 .search-books-results {
-  padding: 80px 10px 20px;
+  padding: 20px 10px;
 }
 
 .search-books-title {
@@ -226,6 +242,50 @@ body, .app {
 .snackbar-book-title,
 .snackbar-book-shelf {
   color: #71c2cc;
+}
+
+/* Book Details */
+.book-page {
+  margin: 0 auto;
+  max-width: 750px;
+  padding: 15px;
+}
+.book-page-header {
+  display: flex;
+}
+.book-page-cover {
+  flex: 1 0 auto;
+}
+.book-page-abstract {
+  padding-left: 30px;
+  width: 100%;
+}
+.book-page-header {
+  margin: 0 0 15px;
+}
+.book-page-title {
+  color: #1d3f72;
+  line-height: 1.3;
+  margin: 0;
+}
+.book-page-subtitle {
+  color: #5699d2;
+  line-height: 1.2;
+  margin: 0 0 10px;
+}
+.book-details-list {}
+.book-details-item {}
+.book-details-term,
+.book-details-description {
+  display: inline-block;
+  font-size: 14px;
+}
+.book-details-term {
+  color: #666;
+  font-weight: 600;
+}
+.book-details-description {
+  margin: 0;
 }
 
 /**

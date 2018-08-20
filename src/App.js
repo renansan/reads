@@ -1,58 +1,25 @@
 import React from 'react'
-// import BookDetails from './BookDetails'
-import Bookshelf from './Bookshelf'
+import BooksList from './BooksList'
+import BookDetails from './BookDetails'
 import SearchBooks from './SearchBooks'
+// import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import { Link, Route } from 'react-router-dom'
 import Snackbar from 'node-snackbar'
 import './App.css'
 import './snackbar.min.css'
 
-// TODO: BookPage must be called BookDetails
-// TODO: BookDetails must be called BookSnippet or BookBrief
-// TODO: Style of BookPage
-// TODO: Allow rating books
+// TODO: Set shelfs list in an external file
+// TODO: Create ShelfSelector as an Component
+// TODO: Add ShelfSelector to BookDetails
+// TODO: Create new tests
+// TODO: Add comments
 // TODO: Check recommendations for better performance https://reactjs.org/docs/optimizing-performance.html
 //
 
-class BookPage extends React.Component {
-  state = {
-    book: '',
-  }
-
-  componentDidMount() {
-    // const bookId = this.props.location.hash.replace('#', '');
-    // const bookId = this.props.location.state.bookId;
-    const bookId = this.props.location.search.replace('?id=', '');
-    if (bookId) {
-      BooksAPI.get(bookId).then(book => {
-        this.setState({ book });
-      });
-    }
-  }
-
-  render() {
-    const details = this.state.book;
-    return (
-      <div>
-        <dl>
-          {Object.keys(details).map((key, index) => {
-            return typeof details[key] === 'string' && (
-              <div key={index}>
-                <dt>{key}</dt>
-                <dd>{details[key]}</dd>
-              </div>
-            )
-          })}
-        </dl>
-      </div>
-    )
-  }
-}
-
 class BooksApp extends React.Component {
   state = {
-    books: '',
+    books: [],
     shelfs: [
       {
         id: "currentlyReading",
@@ -82,7 +49,7 @@ class BooksApp extends React.Component {
     Snackbar.show({
       text: `Moved <span class="snackbar-book-title">${book.title}</span> to <span class="snackbar-book-shelf">${shelf.title}</span> shelf.`,
       duration: 3000,
-      pos: 'top-right',
+      pos: 'bottom-right',
       showAction: false,
     });
 
@@ -104,6 +71,12 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className={`app theme-${(this.state.theme)}`}>
+        <div className="list-books-title">
+          <h1><Link to="/">MyReads</Link></h1>
+          <div className="open-search">
+            <Link to="/search">Add a book</Link>
+          </div>
+        </div>
         <Route path='/search' state='' render={() => (
           <SearchBooks
             shelfs={this.state.shelfs}
@@ -111,31 +84,14 @@ class BooksApp extends React.Component {
           />
         )}/>
         <Route exact path='/' render={() => (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                {this.state.shelfs && this.state.shelfs.map((shelf, index) => (
-                  <Bookshelf
-                    key={index}
-                    id={shelf.id}
-                    title={shelf.title}
-                    shelfs={this.state.shelfs}
-                    books={this.state.books}
-                    updateShelf={this.updateShelf}
-                  />
-                ))}
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to="/search">Add a book</Link>
-            </div>
-          </div>
+          <BooksList
+            shelfs={this.state.shelfs}
+            books={this.state.books}
+            updateShelf={this.updateShelf}
+          />
         )}/>
         <Route exact path='/book/:book' render={(props) => (
-          <BookPage {...props} />
+          <BookDetails {...props} />
         )}/>
       </div>
     )

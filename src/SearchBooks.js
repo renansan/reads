@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import BookDetails from './BookDetails'
+import BookSnippet from './BookSnippet'
 import * as BooksAPI from './BooksAPI'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -53,19 +53,12 @@ class SearchBooks extends Component {
   }
 
   render () {
+    const booksLength = this.state.books.length;
     return (
       <div className="search-books">
         <div className="search-books-bar">
           <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
-            {/*
-              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-              You can find these search terms here:
-              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-              you don't find a specific author or title. Every search is limited by search terms.
-            */}
             <input
               ref={(input) => { this.nameInput = input; }}
               type="text"
@@ -76,13 +69,14 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          {!!this.state.books.length && (
+          {!!booksLength && (
             <h2 className="search-books-title">
-              Showing <span className="search-books-count">{this.state.books.length && (
-                  this.state.books.length === 1 && '1 results '
-              ) || (
-                `${this.state.books.length} results `
-              )}</span>
+              Showing&nbsp;
+              <span className="search-books-count">
+                {booksLength && booksLength === 1 ? ('1 result ') : (
+                  `${booksLength} results `
+                )}
+              </span>
               for {'"'}<span className="search-books-term">{this.state.query}</span>{'"'}
             </h2>
           )}
@@ -90,8 +84,8 @@ class SearchBooks extends Component {
               <Loading />
           )}
           <ol className="books-grid">
-            {!!this.state.books.length && this.state.books.map((book, index) => (
-              <BookDetails
+            {!!booksLength && this.state.books.map((book, index) => (
+              <BookSnippet
                 key={index}
                 details={book}
                 shelfs={this.props.shelfs}
@@ -99,15 +93,20 @@ class SearchBooks extends Component {
               />
             ))}
           </ol>
-          {!this.state.books.length && !this.state.loading && this.state.query && (
+          {!booksLength && !this.state.loading && this.state.query && (
             <h2 className="search-books-title">
-              No results found for <span className="search-books-term">{this.state.query}</span>{'"'}
+              No results found for {'"'}<span className="search-books-term">{this.state.query}</span>{'"'}
             </h2>
           )}
         </div>
       </div>
     )
   }
+}
+
+SearchBooks.propTypes = {
+  shelfs: PropTypes.array.isRequired,
+  updateShelf: PropTypes.func.isRequired,
 }
 
 export default SearchBooks

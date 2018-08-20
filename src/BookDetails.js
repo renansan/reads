@@ -1,51 +1,66 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import slugify from 'slugify'
+import * as BooksAPI from './BooksAPI'
+import PropTypes from 'prop-types'
+import Loading from './Loading'
 
-const BookDetails = (props) => {
-  const change = (event) => {
-    const el = event.target;
-    const shelf = {
-      id: el.value,
-      title: el[el.selectedIndex].textContent
+class BookDetails extends React.Component {
+  state = {
+    book: '',
+  }
+
+  componentDidMount() {
+    // const bookId = this.props.location.hash.replace('#', '');
+    // const bookId = this.props.location.state.bookId;
+    const bookId = this.props.location.search.replace('?id=', '');
+    if (bookId) {
+      BooksAPI.get(bookId).then(book => {
+        this.setState({ book });
+      });
     }
-    props.updateShelf(props.details, shelf)
-  };
-  const {id, title, authors, imageLinks, shelf} = props.details;
-  const cover = (imageLinks && imageLinks.thumbnail) ? imageLinks.thumbnail : '';
-  // const linkTo = `/book/${slugify(title, {lower: true})}`;
-  // const linkTo = `/book/${slugify(title, {lower: true})}#${id}`;
-  // const linkTo = `/book/${slugify(title, {lower: true})}?id=${id}`;
+  }
 
-  return (
-    <li>
-        <div className="book">
-          <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${cover})` }}></div>
-            <div className="book-shelf-changer">
-              <select onChange={change} value={shelf || 'none'}>
-                <option value="move" disabled>Move to...</option>
-                {props.shelfs && props.shelfs.map((bookshelf, index) => (
-                  <option key={index} value={bookshelf.id}>{bookshelf.title}</option>
-                ))}
-                <option value="none">None</option>
-              </select>
+  render() {
+    const {title, subtitle, publisher, publishedDate, description, language, authors, imageLinks, pageCount, categories, canonicalVolumeLink} = this.state.book;
+    const details = {publisher, publishedDate, language, pageCount, categories};
+    const cover = (imageLinks && imageLinks.thumbnail) ? imageLinks.thumbnail : '';
+    return (
+      <div className="book-page">
+        {!this.state.book ? (
+          <Loading />
+        ) : (
+          <article className="book-page-main">
+            <header className="book-page-header">
+              <div className="book-page-cover">
+                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${cover})` }}></div>
+              </div>
+              <div className="book-page-abstract">
+                <h1 className="book-page-title">{title}</h1>
+                <h2 className="book-page-subtitle">{subtitle}</h2>
+                <div className="book-authors">{Array.isArray(authors) ? authors.join(', ') : authors}</div>
+                <dl className="book-details-list">
+                  {Object.keys(details).map((key, index) => (
+                    <div className="book-details-item" key={index}>
+                      <dt className="book-details-term">{key}:&nbsp;</dt>
+                      <dd className="book-details-description">{Array.isArray(details[key]) ? (details[key].join(', ')) : (details[key])}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <a className="button" href={canonicalVolumeLink} title="Click to go to the store" target="_blank">Buy</a>
+              </div>
+            </header>
+            <div className="book-description">
+              <h3>Description</h3>
+              {description}
             </div>
-          </div>
-          <div className="book-title">{title}</div>
-          <div className="book-authors">{authors}</div>
-          <Link
-            className="book-details-link"
-            to={{
-              pathname: `/book/${slugify(title, {lower: true})}`,
-              search: `?id=${id}`,
-              state: {
-                bookId: id
-              }
-            }}>See details</Link>
-        </div>
-    </li>
-  )
+          </article>
+        )}
+      </div>
+    )
+  }
+}
+
+BookDetails.propTypes = {
+  location: PropTypes.object.isRequired,
 }
 
 export default BookDetails

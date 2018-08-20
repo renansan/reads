@@ -1,7 +1,7 @@
 import React from 'react'
-import BookDetails from './BookDetails'
+import BookSnippet from './BookSnippet'
 import Loading from './Loading'
-import * as BooksAPI from './BooksAPI'
+import PropTypes from 'prop-types'
 import sortBy from 'sort-by'
 
 const Bookshelf = (props) => {
@@ -18,7 +18,7 @@ const Bookshelf = (props) => {
         ) : (
           <ol className="books-grid">
             {books && books.sort(sortBy('name')).map((book, index) => (
-              <BookDetails
+              <BookSnippet
                 key={index}
                 details={book}
                 shelfs={props.shelfs}
@@ -30,6 +30,14 @@ const Bookshelf = (props) => {
       </div>
     </div>
   )
+}
+
+Bookshelf.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  books: PropTypes.array.isRequired,
+  shelfs: PropTypes.array.isRequired,
+  updateShelf: PropTypes.func.isRequired,
 }
 
 export default Bookshelf
