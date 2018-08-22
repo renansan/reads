@@ -2,10 +2,10 @@ import React from 'react'
 import BooksList from './BooksList'
 import BookDetails from './BookDetails'
 import SearchBooks from './SearchBooks'
-// import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import { Link, Route } from 'react-router-dom'
 import Snackbar from 'node-snackbar'
+import shelfsList from './shelfs'
 import './App.css'
 import './snackbar.min.css'
 
@@ -20,20 +20,6 @@ import './snackbar.min.css'
 class BooksApp extends React.Component {
   state = {
     books: [],
-    shelfs: [
-      {
-        id: "currentlyReading",
-        title: "Currently Reading"
-      },
-      {
-        id: "wantToRead",
-        title: "Want to Read"
-      },
-      {
-        id: "read",
-        title: "Read"
-      }
-    ],
     theme: 'light',
   }
 
@@ -79,13 +65,13 @@ class BooksApp extends React.Component {
         </div>
         <Route path='/search' state='' render={() => (
           <SearchBooks
-            shelfs={this.state.shelfs}
+            shelfs={shelfsList.shelfs}
             updateShelf={this.updateShelf}
           />
         )}/>
         <Route exact path='/' render={() => (
           <BooksList
-            shelfs={this.state.shelfs}
+            shelfs={shelfsList.shelfs}
             books={this.state.books}
             updateShelf={this.updateShelf}
           />
