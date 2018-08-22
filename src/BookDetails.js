@@ -19,18 +19,31 @@ class BookDetails extends React.Component {
   componentDidMount() {
     // const bookId = this.props.location.hash.replace('#', '');
     // const bookId = this.props.location.state.bookId;
+
+    // Get the book ID from url passed by Route in props.location.
+    // Although it is possible to get the ID from parent component through props
+    // when access page by clicking in "See Details" anchor, It was the better
+    // approach to ensure that's the correct page when access it directly by URL
     const bookId = this.props.location.search.replace('?id=', '');
+    // IF there's and ID in the URL get the book from API
     if (bookId) {
       BooksAPI.get(bookId).then(book => {
         this.setState({ book });
       });
+    // otherwise push back to root page
+    } else {
+      this.props.history.push('/');
     }
   }
 
   render() {
+    // get constants from book state
     const {title, subtitle, publisher, publishedDate, description, language, authors, imageLinks, pageCount, categories, canonicalVolumeLink} = this.state.book;
+    // set an object of details to loop through
     const details = {publisher, publishedDate, language, pageCount, categories};
+    // check and set if a cover image exists
     const cover = (imageLinks && imageLinks.thumbnail) ? imageLinks.thumbnail : '';
+    // set shelf from currentShelf (only if ShelfSelector changes) or from data taken from API
     let shelf = this.state.currentShelf || this.state.book.shelf;
     return (
       <div className="book-page">
