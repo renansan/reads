@@ -12,6 +12,7 @@ import './snackbar.min.css'
 // TODO: Create new tests
 // TODO: Add comments
 // TODO: Check recommendations for better performance https://reactjs.org/docs/optimizing-performance.html
+// TODO: Highlight in search results page the books that have a shelf defined
 //
 
 class BooksApp extends React.Component {
@@ -27,22 +28,37 @@ class BooksApp extends React.Component {
       title: el[el.selectedIndex].textContent
     }
     const {id: bookId } = book;
+    let previousShelfTitle = '';
     const books = this.state.books.map(book => {
-      book.shelf = (bookId === book.id) ? shelf.id : book.shelf;
+      if (bookId === book.id) {
+        previousShelfTitle = book.shelf;
+        book.shelf = shelf.id;
+      }
       return book;
     });
+
     this.setState({ books });
 
     // https://www.polonel.com/snackbar/
-    Snackbar.show({
-      text: `Moved <span class="snackbar-book-title">${book.title}</span> to <span class="snackbar-book-shelf">${shelf.title}</span> shelf.`,
-      duration: 3000,
-      pos: 'bottom-right',
-      showAction: false,
-    });
+    this.showSnackbar(book.title, shelf.title, previousShelfTitle)
 
     BooksAPI.update(book, shelf.id).then(books => {
       this.updateBooks();
+    });
+  }
+
+  showSnackbar = (bookTitle, shelfTitle, previousShelfTitle) => {
+    // https://www.polonel.com/snackbar/
+    const action = (shelfTitle === 'None') ? 'Removed' : 'Moved';
+    const preposition = (shelfTitle === 'None') ? 'from' : 'to';
+    const shelf = (shelfTitle === 'None') ? previousShelfTitle : shelfTitle;
+    const text = `${action} <span class="snackbar-book-title">${bookTitle}</span> ${preposition} <span class="snackbar-book-shelf">${shelf}</span> shelf.`
+    debugger;
+    Snackbar.show({
+      text,
+      duration: 3000,
+      pos: 'bottom-right',
+      showAction: false,
     });
   }
 
