@@ -17,7 +17,7 @@ const Bookshelf = (props) => {
           <span>No books</span>
         ) : (
           <ol className="books-grid">
-            {books && books.sort(sortBy('name')).map((book, index) => (
+            {books && books.sort(sortBy('title')).map((book, index) => (
               <BookSnippet
                 key={index}
                 details={book}

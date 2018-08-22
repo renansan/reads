@@ -7,23 +7,15 @@ import * as BooksAPI from './BooksAPI'
 
 class BookSnippet extends React.Component {
 
-  //handle changes on ShelfSelector
-  handleChange = (event) => {
-    const el = event.target;
-    const shelf = {
-      id: el.value,
-      title: el[el.selectedIndex].textContent
-    }
-    this.props.updateShelf(this.props.details, shelf)
-  };
-
-  // const linkTo = `/book/${slugify(title, {lower: true})}`;
-  // const linkTo = `/book/${slugify(title, {lower: true})}#${id}`;
-  // const linkTo = `/book/${slugify(title, {lower: true})}?id=${id}`;
-
   state = {
     currentShelf: '',
   }
+
+  //handle changes on ShelfSelector
+  handleChange = (event) => {
+    this.props.updateShelf(this.props.details, event);
+    this.setState({currentShelf: event.target.value});
+  };
 
   componentDidMount() {
     // const bookId = this.props.location.hash.replace('#', '');

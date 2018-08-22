@@ -9,8 +9,6 @@ import shelfsList from './shelfs'
 import './App.css'
 import './snackbar.min.css'
 
-// TODO: Create ShelfSelector as an Component
-// TODO: Add ShelfSelector to BookDetails
 // TODO: Create new tests
 // TODO: Add comments
 // TODO: Check recommendations for better performance https://reactjs.org/docs/optimizing-performance.html
@@ -22,7 +20,12 @@ class BooksApp extends React.Component {
     theme: 'light',
   }
 
-  updateShelf = (book, shelf) => {
+  updateShelf = (book, event) => {
+    const el = event.target;
+    const shelf = {
+      id: el.value,
+      title: el[el.selectedIndex].textContent
+    }
     const {id: bookId } = book;
     const books = this.state.books.map(book => {
       book.shelf = (bookId === book.id) ? shelf.id : book.shelf;
@@ -76,7 +79,10 @@ class BooksApp extends React.Component {
           />
         )}/>
         <Route exact path='/book/:book' render={(props) => (
-          <BookDetails {...props} />
+          <BookDetails
+            updateShelf={this.updateShelf}
+            {...props}
+            />
         )}/>
       </div>
     )

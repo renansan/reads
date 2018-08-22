@@ -2,11 +2,19 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import PropTypes from 'prop-types'
 import Loading from './Loading'
+import ShelfSelector from './ShelfSelector'
 
 class BookDetails extends React.Component {
   state = {
     book: '',
+    currentShelf: '',
   }
+
+  //handle changes on ShelfSelector
+  handleChange = (event) => {
+    this.props.updateShelf(this.state.book, event);
+    this.setState({currentShelf: event.target.value});
+  };
 
   componentDidMount() {
     // const bookId = this.props.location.hash.replace('#', '');
@@ -23,12 +31,16 @@ class BookDetails extends React.Component {
     const {title, subtitle, publisher, publishedDate, description, language, authors, imageLinks, pageCount, categories, canonicalVolumeLink} = this.state.book;
     const details = {publisher, publishedDate, language, pageCount, categories};
     const cover = (imageLinks && imageLinks.thumbnail) ? imageLinks.thumbnail : '';
+    let shelf = this.state.currentShelf || this.state.book.shelf;
     return (
       <div className="book-page">
         {!this.state.book ? (
           <Loading />
         ) : (
           <article className="book-page-main">
+            {shelf && (
+              <ShelfSelector handleChange={this.handleChange} currentShelf={shelf || ''}/>
+            )}
             <header className="book-page-header">
               <div className="book-page-cover">
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${cover})` }}></div>
