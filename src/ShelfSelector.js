@@ -9,7 +9,7 @@ import shelfsList from './shelfs'
  * This component must receive a function to handle select changes and the
  * current shelf of the book. The list of shelfs are taken from the shelfs.json.
  *
- * @extends React
+ * @param {Object} props
  */
 const ShelfSelector = (props) => {
   return (

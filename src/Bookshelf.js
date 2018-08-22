@@ -4,9 +4,16 @@ import Loading from './Loading'
 import PropTypes from 'prop-types'
 import sortBy from 'sort-by'
 
+/**
+ * A shelf of books
+ * List all books marked with a determined shelf
+ *
+ * @param {Object} props
+ */
 const Bookshelf = (props) => {
+  // Filter books received from props (all books) to show only
+  // those listed in the current shelf
   const books = (props.books) ? props.books.filter(book => book.shelf === props.id) : '';
-  // debugger;
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{props.title} - <span className="bookshelf-title-count">{books.length} books</span></h2>

@@ -4,6 +4,12 @@ import PropTypes from 'prop-types'
 import Loading from './Loading'
 import ShelfSelector from './ShelfSelector'
 
+/**
+ * Book Details
+ * Show details from book
+ * 
+ * @extends React
+ */
 class BookDetails extends React.Component {
   state = {
     book: '',
@@ -86,6 +92,7 @@ class BookDetails extends React.Component {
 
 BookDetails.propTypes = {
   location: PropTypes.object.isRequired,
+  updateShelf: PropTypes.func.isRequired,
 }
 
 export default BookDetails

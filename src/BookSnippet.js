@@ -5,6 +5,12 @@ import PropTypes from 'prop-types'
 import ShelfSelector from './ShelfSelector'
 import * as BooksAPI from './BooksAPI'
 
+/**
+ * Book Snippet
+ * Show a snippet of the book with the cover, title and authors
+ * 
+ * @extends React
+ */
 class BookSnippet extends React.Component {
 
   state = {

@@ -10,25 +10,37 @@ import './App.css'
 import './snackbar.min.css'
 
 // TODO: Create new tests
-// TODO: Add comments
 // TODO: Check recommendations for better performance https://reactjs.org/docs/optimizing-performance.html
 // TODO: Highlight in search results page the books that have a shelf defined
 //
 
+/**
+ * BooksApp
+ * @extends React
+ */
 class BooksApp extends React.Component {
   state = {
     books: [],
     theme: 'light',
   }
 
+  /**
+   * Update Shelf
+   * @param  {Object} book  The book data
+   * @param  {Object} event An event from a ShelfSelector
+   */
   updateShelf = (book, event) => {
+    // Set el from event target and shelf ID and title in an object
     const el = event.target;
     const shelf = {
       id: el.value,
       title: el[el.selectedIndex].textContent
     }
+    // Get the ID from book
     const {id: bookId } = book;
+    // Get the title from previousShelf (the one before update)
     let previousShelfTitle = '';
+    // Loop for books in state to change the book shelf
     const books = this.state.books.map(book => {
       if (bookId === book.id) {
         previousShelfTitle = book.shelf;
@@ -36,24 +48,33 @@ class BooksApp extends React.Component {
       }
       return book;
     });
-
     this.setState({ books });
 
-    // https://www.polonel.com/snackbar/
+    // Show Snackbar to report the book shelf change
     this.showSnackbar(book.title, shelf.title, previousShelfTitle)
 
+    // Update book shelf on API
     BooksAPI.update(book, shelf.id).then(books => {
       this.updateBooks();
     });
   }
 
+  /**
+   * Show a snackbar for change reports
+   * @link https://www.polonel.com/snackbar/
+   *
+   * @param  {String} bookTitle          the book title
+   * @param  {String} shelfTitle         the current/new shelf title
+   * @param  {String} previousShelfTitle the previous shelf title
+   */
   showSnackbar = (bookTitle, shelfTitle, previousShelfTitle) => {
-    // https://www.polonel.com/snackbar/
+    // set text content based on shelf
     const action = (shelfTitle === 'None') ? 'Removed' : 'Moved';
     const preposition = (shelfTitle === 'None') ? 'from' : 'to';
     const shelf = (shelfTitle === 'None') ? previousShelfTitle : shelfTitle;
     const text = `${action} <span class="snackbar-book-title">${bookTitle}</span> ${preposition} <span class="snackbar-book-shelf">${shelf}</span> shelf.`
-    debugger;
+
+    // Show snackbar
     Snackbar.show({
       text,
       duration: 3000,
@@ -62,6 +83,9 @@ class BooksApp extends React.Component {
     });
   }
 
+  /**
+   * Update books in state from API data
+   */
   updateBooks = () => {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
@@ -69,6 +93,7 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
+    // Update books on app load
     this.updateBooks();
   }
 

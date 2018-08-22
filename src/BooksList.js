@@ -2,6 +2,10 @@ import React from 'react'
 import Bookshelf from './Bookshelf'
 import PropTypes from 'prop-types'
 
+/**
+ * List the bookshelfs
+ * @param {Object} props
+ */
 const BooksList = (props) => {
   return (
     <div className="list-books">

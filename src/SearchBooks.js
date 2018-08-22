@@ -9,6 +9,7 @@ import Loading from './Loading'
 /**
  * SearchBooks
  * Search for books in API
+ * 
  * @extends Component
  */
 class SearchBooks extends Component {
