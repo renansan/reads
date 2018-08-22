@@ -6,6 +6,11 @@ import PropTypes from 'prop-types'
 import Loading from './Loading'
 // import Cookies from 'js-cookie'
 
+/**
+ * SearchBooks
+ * Search for books in API
+ * @extends Component
+ */
 class SearchBooks extends Component {
 
   state = {
@@ -14,33 +19,60 @@ class SearchBooks extends Component {
     loading: false
   }
 
+  // Update search query
   updateQuery = (query) => {
-    this.setState({
-      query,
-      loading: true
-    })
-    if (query.length) {
-      localStorage.setItem('currentQuery', JSON.stringify({query, books: this.state.books}));
-      BooksAPI.search(query).then((books) => {
-        if (this.state.query.length) {
-          localStorage.setItem('currentQuery', JSON.stringify({query: this.state.query, books}));
-          this.setState({
-            loading: false,
-            books: books || []
-          })
-        }
-      });
-    } else {
-      localStorage.removeItem('currentQuery');
+    // update only if new query is different from current state
+    // Obs: It's useful to avoid problems related to typing faster, like show
+    // books from one query when another one is stored in state
+    if (query !== this.state.query) {
+
+      // set new query and add loading
       this.setState({
-        query: '',
-        loading: false,
-        books: []
+        query,
+        loading: true
       })
+
+      // If query's not empty
+      if (query.length) {
+
+        // Set the new query and list of books in Local Storage to avoid lose
+        // query when leaves the page (e.g. book details page) and come back or
+        // localStorage.setItem('currentQuery', JSON.stringify({query, books: this.state.books}));
+
+        // Search books in API
+        BooksAPI.search(query).then((books) => {
+          // check if current state query's not empty
+          if (this.state.query.length) {
+
+            // Set current state query and list of books returned by API in Local Storage
+            // to avoid lose query when leaves the page (e.g. book details page) and come back
+            localStorage.setItem('currentQuery', JSON.stringify({query: this.state.query, books}));
+
+            // Set returned books and remove loading state
+            this.setState({
+              loading: false,
+              books: books || []
+            })
+          }
+        });
+
+      // If query's empty
+      } else {
+        // remove query and books from Local Storage
+        localStorage.removeItem('currentQuery');
+
+        // reset all states
+        this.setState({
+          query: '',
+          loading: false,
+          books: []
+        })
+      }
     }
   }
 
   componentDidMount() {
+    // Check and load an existent key from Local Storage if there's
     const queryCookie = localStorage.getItem('currentQuery');
     if (queryCookie) {
       this.setState({
@@ -48,7 +80,8 @@ class SearchBooks extends Component {
         books: JSON.parse(queryCookie).books
       })
     }
-    // Set focus to search input on page load
+
+    // Set focus to search input on app load
     this.nameInput.focus();
   }
 
