@@ -9,7 +9,6 @@ import shelfsList from './shelfs'
 import './App.css'
 import './snackbar.min.css'
 
-// TODO: Set shelfs list in an external file
 // TODO: Create ShelfSelector as an Component
 // TODO: Add ShelfSelector to BookDetails
 // TODO: Create new tests
