@@ -9,11 +9,11 @@ import shelfsList from './shelfs'
 import './App.css'
 import './snackbar.min.css'
 
-// TODO: Update README
-// TODO: Create new tests
+// TODO: Styling ShelfSelector in BookDetails
 // TODO: Check recommendations for better performance https://reactjs.org/docs/optimizing-performance.html
+// TODO: Add drag and drop to shelfs
 // TODO: Highlight in search results page the books that have a shelf defined
-//
+// TODO: Create new tests
 
 /**
  * BooksApp
