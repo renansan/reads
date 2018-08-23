@@ -9,6 +9,7 @@ import shelfsList from './shelfs'
 import './App.css'
 import './snackbar.min.css'
 
+// TODO: Update README
 // TODO: Create new tests
 // TODO: Check recommendations for better performance https://reactjs.org/docs/optimizing-performance.html
 // TODO: Highlight in search results page the books that have a shelf defined
@@ -20,7 +21,7 @@ import './snackbar.min.css'
  */
 class BooksApp extends React.Component {
   state = {
-    books: [],
+    books: null,
     theme: 'light',
   }
 

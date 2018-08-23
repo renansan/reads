@@ -28,7 +28,9 @@ const BooksList = (props) => {
 }
 
 BooksList.propTypes = {
-  books: PropTypes.array.isRequired,
+  // books not required since PropTypes not allow check for null
+  // https://github.com/facebook/react/issues/3163#issuecomment-292669149
+  books: PropTypes.array,
   shelfs: PropTypes.array.isRequired,
   updateShelf: PropTypes.func.isRequired,
 }
