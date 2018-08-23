@@ -9,7 +9,7 @@ import Loading from './Loading'
 /**
  * SearchBooks
  * Search for books in API
- * 
+ *
  * @extends Component
  */
 class SearchBooks extends Component {
@@ -22,53 +22,47 @@ class SearchBooks extends Component {
 
   // Update search query
   updateQuery = (query) => {
-    // update only if new query is different from current state
-    // Obs: It's useful to avoid problems related to typing faster, like show
-    // books from one query when another one is stored in state
-    if (query !== this.state.query) {
 
-      // set new query and add loading
+    // set new query and add loading
+    this.setState({
+      query,
+      loading: true
+    })
+
+    // If query's not empty
+    if (query.length) {
+
+      // Search books in API
+      BooksAPI.search(query).then((books) => {
+        // check if current query's still the same as state query
+        // Obs: It's useful to avoid problems related to typing faster, like show
+        // books from one query when another one is stored in state
+        if (this.state.query.length && this.state.query === query) {
+
+          // Set current state query and list of books returned by API in Local Storage
+          // to avoid lose query when leaves the page (e.g. book details page) and come back
+          localStorage.setItem('currentQuery', JSON.stringify({query: this.state.query, books}));
+
+          // Set returned books and remove loading state
+          this.setState({
+            query: this.state.query,
+            loading: false,
+            books: books || []
+          })
+        }
+      });
+
+    // If query's empty
+    } else {
+      // remove query and books from Local Storage
+      localStorage.removeItem('currentQuery');
+
+      // reset all states
       this.setState({
-        query,
-        loading: true
+        query: '',
+        loading: false,
+        books: []
       })
-
-      // If query's not empty
-      if (query.length) {
-
-        // Set the new query and list of books in Local Storage to avoid lose
-        // query when leaves the page (e.g. book details page) and come back or
-        // localStorage.setItem('currentQuery', JSON.stringify({query, books: this.state.books}));
-
-        // Search books in API
-        BooksAPI.search(query).then((books) => {
-          // check if current state query's not empty
-          if (this.state.query.length) {
-
-            // Set current state query and list of books returned by API in Local Storage
-            // to avoid lose query when leaves the page (e.g. book details page) and come back
-            localStorage.setItem('currentQuery', JSON.stringify({query: this.state.query, books}));
-
-            // Set returned books and remove loading state
-            this.setState({
-              loading: false,
-              books: books || []
-            })
-          }
-        });
-
-      // If query's empty
-      } else {
-        // remove query and books from Local Storage
-        localStorage.removeItem('currentQuery');
-
-        // reset all states
-        this.setState({
-          query: '',
-          loading: false,
-          books: []
-        })
-      }
     }
   }
 
