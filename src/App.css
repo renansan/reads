@@ -303,3 +303,13 @@ body, .app {
 .theme-dark .book-shelf-changer {
   background-color: #5699d2;
 }
+
+.is-droppable {
+  border: 3px dotted transparent;
+  transition: .3s;
+}
+.has-drag-over {
+  background-color: #eee;
+  border: 3px dashed #ccc;
+  border-radius: 5px;
+}

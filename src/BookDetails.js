@@ -7,7 +7,7 @@ import ShelfSelector from './ShelfSelector'
 /**
  * Book Details
  * Show details from book
- * 
+ *
  * @extends React
  */
 class BookDetails extends React.Component {
@@ -17,9 +17,9 @@ class BookDetails extends React.Component {
   }
 
   //handle changes on ShelfSelector
-  handleChange = (event) => {
-    this.props.updateShelf(this.state.book, event);
-    this.setState({currentShelf: event.target.value});
+  handleChange = (shelf) => {
+    this.props.updateShelf(this.props.details, shelf);
+    this.setState({currentShelf: shelf.id});
   };
 
   componentDidMount() {
