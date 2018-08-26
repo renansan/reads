@@ -2,13 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import slugify from 'slugify'
 import PropTypes from 'prop-types'
-import ShelfSelector from './ShelfSelector'
-import * as BooksAPI from './BooksAPI'
+import ShelfSelector from '../ShelfSelector'
+import * as BooksAPI from '../../api/BooksAPI'
 
 /**
  * Book Snippet
  * Show a snippet of the book with the cover, title and authors
- * 
+ *
  * @extends React
  */
 class BookSnippet extends React.Component {

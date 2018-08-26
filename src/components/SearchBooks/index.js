@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import BookSnippet from './BookSnippet'
-import * as BooksAPI from './BooksAPI'
+import BookSnippet from '../BookSnippet'
+import * as BooksAPI from '../../api/BooksAPI'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import Loading from './Loading'
+import Loading from '../Loading'
 // import Cookies from 'js-cookie'
 
 /**
  * SearchBooks
  * Search for books in API
- * 
+ *
  * @extends Component
  */
 class SearchBooks extends Component {

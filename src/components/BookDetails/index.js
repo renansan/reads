@@ -1,8 +1,8 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from '../../api/BooksAPI'
 import PropTypes from 'prop-types'
-import Loading from './Loading'
-import ShelfSelector from './ShelfSelector'
+import Loading from '../Loading'
+import ShelfSelector from '../ShelfSelector'
 
 /**
  * Book Details

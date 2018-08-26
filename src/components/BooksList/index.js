@@ -1,5 +1,5 @@
 import React from 'react'
-import Bookshelf from './Bookshelf'
+import Bookshelf from '../Bookshelf'
 import PropTypes from 'prop-types'
 
 /**

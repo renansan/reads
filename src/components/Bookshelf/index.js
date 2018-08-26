@@ -1,6 +1,6 @@
 import React from 'react'
-import BookSnippet from './BookSnippet'
-import Loading from './Loading'
+import BookSnippet from '../BookSnippet'
+import Loading from '../Loading'
 import PropTypes from 'prop-types'
 import sortBy from 'sort-by'
 
