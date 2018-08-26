@@ -30,13 +30,7 @@ class BooksApp extends React.Component {
    * @param  {Object} book  The book data
    * @param  {Object} event An event from a ShelfSelector
    */
-  updateShelf = (book, event) => {
-    // Set el from event target and shelf ID and title in an object
-    const el = event.target;
-    const shelf = {
-      id: el.value,
-      title: el[el.selectedIndex].textContent
-    }
+  updateShelf = (book, shelf) => {
     // Get the ID from book
     const {id: bookId } = book;
     // Get the title from previousShelf (the one before update)

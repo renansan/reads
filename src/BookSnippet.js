@@ -8,7 +8,7 @@ import * as BooksAPI from './BooksAPI'
 /**
  * Book Snippet
  * Show a snippet of the book with the cover, title and authors
- * 
+ *
  * @extends React
  */
 class BookSnippet extends React.Component {
@@ -17,10 +17,17 @@ class BookSnippet extends React.Component {
     currentShelf: '',
   }
 
+  // handle drag Event
+  handleDrag = (event) => {
+    if (this.props.draggable) {
+      this.props.draggable(event, this.props.details);
+    }
+  }
+
   //handle changes on ShelfSelector
-  handleChange = (event) => {
-    this.props.updateShelf(this.props.details, event);
-    this.setState({currentShelf: event.target.value});
+  handleShelfSelectorChange = (shelf) => {
+    this.props.updateShelf(this.props.details, shelf);
+    this.setState({currentShelf: shelf.id});
   };
 
   componentDidMount() {
@@ -44,13 +51,13 @@ class BookSnippet extends React.Component {
     // check and set if a cover image exists
     const cover = (imageLinks && imageLinks.thumbnail) ? imageLinks.thumbnail : '';
     return (
-      <li>
+      <li id={id} draggable={(!!this.props.draggable)} onDragStart={event => this.handleDrag(event)}>
         <div className="book">
           <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${cover})` }}></div>
             <div className="book-shelf-changer">
               {this.state.currentShelf && (
-                <ShelfSelector handleChange={this.handleChange} currentShelf={this.state.currentShelf || ''}/>
+                <ShelfSelector handleChange={this.handleShelfSelectorChange} currentShelf={this.state.currentShelf || ''}/>
               )}
             </div>
           </div>
