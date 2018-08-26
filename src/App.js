@@ -14,7 +14,6 @@ import './css/snackbar.min.css'
  * BooksApp
  *
  * TODO: Highlight in search results page the books that have a shelf defined
- * TODO: Resolve: Can't call setState (or forceUpdate) on an unmounted component
  * TODO: Create new tests
  *
  * @extends React

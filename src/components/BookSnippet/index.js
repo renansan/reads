@@ -8,7 +8,9 @@ import * as BooksAPI from '../../api/BooksAPI'
 /**
  * Book Snippet
  * Show a snippet of the book with the cover, title and authors
+ *
  * TODO: Add a "draggable icon" to element on hover
+ * TODO: Resolve "Can't call setState (or forceUpdate) on an unmounted component" (on componentDidMount)
  *
  * @extends React
  */
