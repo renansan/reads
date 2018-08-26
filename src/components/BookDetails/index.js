@@ -17,9 +17,9 @@ class BookDetails extends React.Component {
   }
 
   //handle changes on ShelfSelector
-  handleChange = (event) => {
-    this.props.updateShelf(this.state.book, event);
-    this.setState({currentShelf: event.target.value});
+  handleChange = (shelf) => {
+    this.props.updateShelf(this.props.details, shelf);
+    this.setState({currentShelf: shelf.id});
   };
 
   componentDidMount() {
@@ -57,12 +57,15 @@ class BookDetails extends React.Component {
           <Loading />
         ) : (
           <article className="book-page-main">
-            {shelf && (
-              <ShelfSelector handleChange={this.handleChange} currentShelf={shelf || ''}/>
-            )}
             <header className="book-page-header">
               <div className="book-page-cover">
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${cover})` }}></div>
+                {shelf && (
+                  <div className="book-page-select">
+                    <label>Current Shelf:</label>
+                    <ShelfSelector handleChange={this.handleChange} currentShelf={shelf || ''}/>
+                  </div>
+                )}
               </div>
               <div className="book-page-abstract">
                 <h1 className="book-page-title">{title}</h1>

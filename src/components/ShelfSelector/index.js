@@ -12,8 +12,18 @@ import shelfsList from '../../shelfs'
  * @param {Object} props
  */
 const ShelfSelector = (props) => {
+  //handle changes on ShelfSelector
+  const handleChange = (event) => {
+    // Set el from event target and shelf ID and title in an object
+    const el = event.target;
+    const shelf = {
+      id: el.value,
+      title: el[el.selectedIndex].textContent
+    }
+    props.handleChange(shelf, event);
+  }
   return (
-    <select onChange={props.handleChange} value={props.currentShelf || 'none'}>
+    <select onChange={handleChange} value={props.currentShelf || 'none'}>
       <option value="move" disabled>Move to...</option>
       {shelfsList.shelfs && shelfsList.shelfs.map((bookshelf, index) => (
         <option key={index} value={bookshelf.id}>{bookshelf.title}</option>
