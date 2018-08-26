@@ -256,6 +256,15 @@ body, .app {
 .book-page-cover {
   flex: 1 0 auto;
 }
+.book-page-select {
+  padding: 10px 0;
+}
+.book-page-select label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+}
+.book-page-select select {}
 .book-page-abstract {
   padding-left: 30px;
   width: 100%;
