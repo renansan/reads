@@ -9,14 +9,14 @@ import shelfsList from './shelfs'
 import './css/App.css'
 import './css/snackbar.min.css'
 
-// TODO: Styling ShelfSelector in BookDetails
-// TODO: Check recommendations for better performance https://reactjs.org/docs/optimizing-performance.html
-// TODO: Add drag and drop to shelfs
-// TODO: Highlight in search results page the books that have a shelf defined
-// TODO: Create new tests
 
 /**
  * BooksApp
+ *
+ * TODO: Highlight in search results page the books that have a shelf defined
+ * TODO: Resolve: Can't call setState (or forceUpdate) on an unmounted component
+ * TODO: Create new tests
+ *
  * @extends React
  */
 class BooksApp extends Component {

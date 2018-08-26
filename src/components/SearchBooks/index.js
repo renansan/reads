@@ -9,6 +9,7 @@ import Loading from '../Loading'
 /**
  * SearchBooks
  * Search for books in API
+ * TODO: Add debounces to search
  *
  * @extends Component
  */

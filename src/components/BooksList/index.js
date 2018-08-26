@@ -6,19 +6,19 @@ import PropTypes from 'prop-types'
  * List the bookshelfs
  * @param {Object} props
  */
-const BooksList = (props) => {
+const BooksList = ({shelfs, books, updateShelf}) => {
   return (
     <div className="list-books">
       <div className="list-books-content">
         <div>
-          {props.shelfs && props.shelfs.map((shelf, index) => (
+          {shelfs && shelfs.map((shelf, index) => (
             <Bookshelf
               key={index}
               id={shelf.id}
               title={shelf.title}
-              shelfs={props.shelfs}
-              books={props.books}
-              updateShelf={props.updateShelf}
+              shelfs={shelfs}
+              books={books}
+              updateShelf={updateShelf}
             />
           ))}
         </div>
