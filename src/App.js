@@ -1,13 +1,13 @@
 import React from 'react'
-import BooksList from './BooksList'
-import BookDetails from './BookDetails'
-import SearchBooks from './SearchBooks'
-import * as BooksAPI from './BooksAPI'
+import BooksList from './components/BooksList'
+import BookDetails from './components/BookDetails'
+import SearchBooks from './components/SearchBooks'
+import * as BooksAPI from './api/BooksAPI'
 import { Link, Route } from 'react-router-dom'
 import Snackbar from 'node-snackbar'
 import shelfsList from './shelfs'
-import './App.css'
-import './snackbar.min.css'
+import './css/App.css'
+import './css/snackbar.min.css'
 
 // TODO: Styling ShelfSelector in BookDetails
 // TODO: Check recommendations for better performance https://reactjs.org/docs/optimizing-performance.html
