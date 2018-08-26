@@ -17,6 +17,13 @@ class BookSnippet extends React.Component {
     currentShelf: '',
   }
 
+  // handle drag Event
+  handleDrag = (event) => {
+    if (this.props.draggable) {
+      this.props.draggable(event, this.props.details);
+    }
+  }
+
   //handle changes on ShelfSelector
   handleShelfSelectorChange = (shelf) => {
     this.props.updateShelf(this.props.details, shelf);
@@ -44,7 +51,7 @@ class BookSnippet extends React.Component {
     // check and set if a cover image exists
     const cover = (imageLinks && imageLinks.thumbnail) ? imageLinks.thumbnail : '';
     return (
-      <li id={id} draggable="true" onDragStart={event => this.props.dragStart(event, this.props.details)} onDrag={event => this.props.drag(event)}>
+      <li id={id} draggable={(!!this.props.draggable)} onDragStart={event => this.handleDrag(event)}>
         <div className="book">
           <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${cover})` }}></div>
