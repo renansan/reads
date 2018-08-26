@@ -9,7 +9,6 @@ import Loading from '../Loading'
 /**
  * SearchBooks
  * Search for books in API
- * TODO: Add debounces to search
  *
  * @extends Component
  */
@@ -21,21 +20,36 @@ class SearchBooks extends Component {
     loading: false
   }
 
+  debounce = (fn, time) => {
+    let timeout;
+    const output = () => {
+      const functionCall = () => fn.apply(this, arguments);
+
+      clearTimeout(timeout);
+      timeout = setTimeout(functionCall, time);
+    }
+    return output();
+  }
+
   // Update search query
   updateQuery = (query) => {
-    // update only if new query is different from current state
-    // Obs: It's useful to avoid problems related to typing faster, like show
-    // books from one query when another one is stored in state
-    if (query !== this.state.query) {
 
-      // set new query and add loading
-      this.setState({
-        query,
-        loading: true
-      })
+    if (query === this.state.query) {
+      debugger;
+      return
+    };
 
-      // If query's not empty
-      if (query.length) {
+    // set new query and add loading
+    this.setState({
+      query,
+      loading: true
+    })
+
+    // If query's not empty
+    if (query.length) {
+
+
+      this.debounce(() => {
 
         // Set the new query and list of books in Local Storage to avoid lose
         // query when leaves the page (e.g. book details page) and come back or
@@ -43,8 +57,10 @@ class SearchBooks extends Component {
 
         // Search books in API
         BooksAPI.search(query).then((books) => {
-          // check if current state query's not empty
-          if (this.state.query.length) {
+          // check if current state query's not empty and equal to query
+          // Obs: It's useful to avoid problems related to typing faster, like show
+          // books from one query when another one is stored in state
+          if (this.state.query.length && this.state.query === query) {
 
             // Set current state query and list of books returned by API in Local Storage
             // to avoid lose query when leaves the page (e.g. book details page) and come back
@@ -57,19 +73,19 @@ class SearchBooks extends Component {
             })
           }
         });
+      }, 500)
 
-      // If query's empty
-      } else {
-        // remove query and books from Local Storage
-        localStorage.removeItem('currentQuery');
+    // If query's empty
+    } else {
+      // remove query and books from Local Storage
+      localStorage.removeItem('currentQuery');
 
-        // reset all states
-        this.setState({
-          query: '',
-          loading: false,
-          books: []
-        })
-      }
+      // reset all states
+      this.setState({
+        query: '',
+        loading: false,
+        books: []
+      })
     }
   }
 
