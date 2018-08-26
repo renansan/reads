@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import slugify from 'slugify'
 import PropTypes from 'prop-types'
@@ -12,7 +12,7 @@ import * as BooksAPI from '../../api/BooksAPI'
  *
  * @extends React
  */
-class BookSnippet extends React.Component {
+class BookSnippet extends Component {
 
   state = {
     currentShelf: '',

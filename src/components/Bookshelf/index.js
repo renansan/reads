@@ -18,18 +18,14 @@ class Bookshelf extends Component {
 
   // Called when a bookshelf item starts to drag
   dragStart = (event, book) => {
+    const el = event.currentTarget;
+    el.style.opacity = '.4';
     // stores book data
     event.dataTransfer.setData("text/plain", JSON.stringify(book));
     // reset drag counter
     this.setState({ dragCounter: 0 });
     // set shelf item to dragElement variable
-    this.setState({ dragElement: event.currentTarget });
-    this.setState(({ dragElement }) => {
-      dragElement.style.opacity = '.4';
-      return {
-        dragElement: dragElement,
-      }
-    });
+    this.setState({ dragElement: el });
   }
 
   // Called when dragged item is over a droppable element
@@ -85,6 +81,7 @@ class Bookshelf extends Component {
         }
       });
     }
+
     event.currentTarget.classList.remove('has-drag-over');
 
     if (book && book.shelf !== shelf.id) this.props.updateShelf(book, shelf);

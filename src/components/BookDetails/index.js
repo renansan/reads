@@ -1,5 +1,5 @@
-import React from 'react'
 import * as BooksAPI from '../../api/BooksAPI'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Loading from '../Loading'
 import ShelfSelector from '../ShelfSelector'
@@ -10,7 +10,7 @@ import ShelfSelector from '../ShelfSelector'
  *
  * @extends React
  */
-class BookDetails extends React.Component {
+class BookDetails extends Component {
   state = {
     book: '',
     currentShelf: '',

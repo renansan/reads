@@ -1,10 +1,10 @@
-import React from 'react'
-import BooksList from './components/BooksList'
-import BookDetails from './components/BookDetails'
-import SearchBooks from './components/SearchBooks'
-import * as BooksAPI from './api/BooksAPI'
+import React, { Component } from 'react'
 import { Link, Route } from 'react-router-dom'
 import Snackbar from 'node-snackbar'
+import * as BooksAPI from './api/BooksAPI'
+import BookDetails from './components/BookDetails'
+import BooksList from './components/BooksList'
+import SearchBooks from './components/SearchBooks'
 import shelfsList from './shelfs'
 import './css/App.css'
 import './css/snackbar.min.css'
@@ -19,7 +19,7 @@ import './css/snackbar.min.css'
  * BooksApp
  * @extends React
  */
-class BooksApp extends React.Component {
+class BooksApp extends Component {
   state = {
     books: null,
     theme: 'light',
@@ -36,22 +36,26 @@ class BooksApp extends React.Component {
     // Get the title from previousShelf (the one before update)
     let previousShelfTitle = '';
     // Loop for books in state to change the book shelf
-    const books = this.state.books.map(book => {
-      if (bookId === book.id) {
-        previousShelfTitle = book.shelf;
-        book.shelf = shelf.id;
+    this.setState(({ books }) => {
+      return {
+        books: books.map(book => {
+          if (bookId === book.id) {
+            previousShelfTitle = book.shelf;
+            book.shelf = shelf.id;
+          }
+          return book;
+        })
       }
-      return book;
-    });
-    this.setState({ books });
+    }, () => {
+      // Show Snackbar to report the book shelf change
+      this.showSnackbar(book.title, shelf.title, previousShelfTitle)
 
-    // Show Snackbar to report the book shelf change
-    this.showSnackbar(book.title, shelf.title, previousShelfTitle)
-
-    // Update book shelf on API
-    BooksAPI.update(book, shelf.id).then(books => {
-      this.updateBooks();
+      // Update book shelf on API
+      BooksAPI.update(book, shelf.id).then(books => {
+        this.updateBooks();
+      });
     });
+
   }
 
   /**
@@ -67,7 +71,10 @@ class BooksApp extends React.Component {
     const action = (shelfTitle === 'None') ? 'Removed' : 'Moved';
     const preposition = (shelfTitle === 'None') ? 'from' : 'to';
     const shelf = (shelfTitle === 'None') ? previousShelfTitle : shelfTitle;
-    const text = `${action} <span class="snackbar-book-title">${bookTitle}</span> ${preposition} <span class="snackbar-book-shelf">${shelf}</span> shelf.`
+    const text = `
+      ${action} <span class="snackbar-book-title">${bookTitle}</span>
+      ${preposition} <span class="snackbar-book-shelf">${shelf}</span> shelf.
+    `;
 
     // Show snackbar
     Snackbar.show({
