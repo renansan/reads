@@ -1,5 +1,12 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-// import App from '../App'
+import renderer from 'react-test-renderer';
+import ShelfSelector from './index'
 
-it('do something', () => {let test})
+it('renders correctly', () => {
+  const props = {
+    handleChange: jest.fn(() => 'handleChange'),
+    currentShelf: 'test',
+  }
+  const tree = renderer.create(<ShelfSelector {...props} />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
