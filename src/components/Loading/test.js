@@ -1,5 +1,8 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-// import App from '../App'
+import renderer from 'react-test-renderer';
+import Loading from './index'
 
-it('do something', () => {})
+it('renders correctly', () => {
+  const tree = renderer.create(<Loading />).toJSON();
+  expect(tree).toMatchSnapshot();
+});

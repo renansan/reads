@@ -34,7 +34,6 @@ const Loading = () => {
           </circle>
         </g>
       </svg>
-
     </div>
   )
 }

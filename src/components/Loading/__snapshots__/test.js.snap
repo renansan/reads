@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="loading"
+>
+  <svg
+    className="loading-icon"
+    preserveAspectRatio="xMidYMid"
+    viewBox="0 0 100 100"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      transform="translate(20 50)"
+    >
+      <circle
+        fill="#1d3f72"
+        r="6"
+        transform="scale(.52225)"
+      >
+        <animateTransform
+          attributeName="transform"
+          begin="-0.375s"
+          calcMode="spline"
+          dur="1s"
+          keySplines="0.3 0 0.7 1;0.3 0 0.7 1"
+          keyTimes="0;0.5;1"
+          repeatCount="indefinite"
+          type="scale"
+          values="0;1;0"
+        />
+      </circle>
+    </g>
+    <g
+      transform="translate(40 50)"
+    >
+      <circle
+        fill="#5699d2"
+        r="6"
+        transform="scale(.1839)"
+      >
+        <animateTransform
+          attributeName="transform"
+          begin="-0.25s"
+          calcMode="spline"
+          dur="1s"
+          keySplines="0.3 0 0.7 1;0.3 0 0.7 1"
+          keyTimes="0;0.5;1"
+          repeatCount="indefinite"
+          type="scale"
+          values="0;1;0"
+        />
+      </circle>
+    </g>
+    <g
+      transform="translate(60 50)"
+    >
+      <circle
+        fill="#d8ebf9"
+        r="6"
+        transform="scale(.00065)"
+      >
+        <animateTransform
+          attributeName="transform"
+          begin="-0.125s"
+          calcMode="spline"
+          dur="1s"
+          keySplines="0.3 0 0.7 1;0.3 0 0.7 1"
+          keyTimes="0;0.5;1"
+          repeatCount="indefinite"
+          type="scale"
+          values="0;1;0"
+        />
+      </circle>
+    </g>
+    <g
+      transform="translate(80 50)"
+    >
+      <circle
+        fill="#71c2cc"
+        r="6"
+        transform="scale(.15024)"
+      >
+        <animateTransform
+          attributeName="transform"
+          begin="0s"
+          calcMode="spline"
+          dur="1s"
+          keySplines="0.3 0 0.7 1;0.3 0 0.7 1"
+          keyTimes="0;0.5;1"
+          repeatCount="indefinite"
+          type="scale"
+          values="0;1;0"
+        />
+      </circle>
+    </g>
+  </svg>
+</div>
+`;
