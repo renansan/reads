@@ -83,7 +83,6 @@ class BookSnippet extends Component {
 
 BookSnippet.propTypes = {
   details: PropTypes.object.isRequired,
-  shelfs: PropTypes.array.isRequired,
   updateShelf: PropTypes.func.isRequired,
 }
 

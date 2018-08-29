@@ -24,9 +24,7 @@ describe('tests suite', () => {
     it('renders Bookshelf with right props', () => {
       expect(wrapper.find(Bookshelf)).toHaveLength(1);
       expect(wrapper.find(Bookshelf)
-        .prop('title')).toEqual(props.shelfs[0].title);
-      expect(wrapper.find(Bookshelf)
-        .prop('books')).toContainEqual(props.books[0]);
+      .prop('books')).toContainEqual(props.books[0]);
     });
   });
 })
